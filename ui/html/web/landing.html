@@ -1,0 +1,25 @@
+{{template "header" .}}
+    <title>Document</title>
+</head>
+<body>
+
+    <form method="post" enctype="multipart/form-data">
+        <div>
+          <div>
+            <label>First field</label><br>
+            <input type="text" name="first_field" required />
+          </div>
+          <div>
+            <label>Second field</label><br>
+            <input type="text" name="second_field" required />
+          </div>
+        </div>
+        <div>
+          <label>Third field</label><br>
+          <textarea name="third_field" rows="10" required></textarea>
+        </div>
+        <input type="submit" />
+      </form>
+    
+</body>
+</html>
