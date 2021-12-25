@@ -1,12 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/kiketordera/basic-gin-examples/domain"
+	"github.com/kiketordera/basic-gin-examples/repositories"
+	"gopkg.in/mgo.v2/bson"
 )
 
-func main() {
+func main2() {
 	r := gin.Default()
 
 	// Path to the static files. /static is rendered in the HTML and /media is the link to the path to the  images, svg, css.. the static files
@@ -46,4 +50,21 @@ func GetForm(c *gin.Context) {
 		"second": formData.SecondField,
 		"third":  formData.ThirdField,
 	})
+
+	u := domain.User{
+		ID:                   bson.NewObjectId().Hex(),
+		Name:                 formData.FirstField,
+		Surname:              formData.SecondField,
+		IdentificationNumber: formData.ThirdField,
+	}
+
+	repositories.SaveObject(u, bson.ObjectIdHex(u.ID))
+
+	us, _ := repositories.GetUserByID(bson.ObjectIdHex(u.ID))
+
+	fmt.Print("This is user before mod: ", us)
+
+	uua := repositories.GetAllUsers()
+	fmt.Print("This is al users: ", uua)
+
 }
